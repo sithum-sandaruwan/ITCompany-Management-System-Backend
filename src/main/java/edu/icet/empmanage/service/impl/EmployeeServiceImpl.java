@@ -1,6 +1,8 @@
 package edu.icet.empmanage.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.icet.empmanage.dto.Employee;
+import edu.icet.empmanage.entity.EmployeeEntity;
 import edu.icet.empmanage.repository.EmployeeRepository;
 import edu.icet.empmanage.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
@@ -13,17 +15,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
 
-    List<Employee> employees = new ArrayList<>();
-
     final EmployeeRepository empRepo;
 
     @Override
     public void addEmployee(Employee employee) {
-        employees.add(employee);
+
+        EmployeeEntity employeeEntity = new ObjectMapper().convertValue(employee, EmployeeEntity.class);
+        empRepo.save(employeeEntity);
     }
 
     @Override
-    public List<Employee> getAll() {
-        return employees;
+    public Iterable<EmployeeEntity> getAll() {
+        return empRepo.findAll();
     }
 }

@@ -1,12 +1,11 @@
 package edu.icet.empmanage.service;
 
 import edu.icet.empmanage.dto.Employee;
-
-import java.util.List;
+import edu.icet.empmanage.entity.EmployeeEntity;
 
 public interface EmployeeService {
 
     void addEmployee(Employee employee);
 
-    List<Employee> getAll();
+    Iterable<EmployeeEntity> getAll();
 }
