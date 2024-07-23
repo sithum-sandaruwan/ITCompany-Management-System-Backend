@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -52,5 +53,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (empRepo.findById(employee.getId()).isPresent()){
             empRepo.save(new ObjectMapper().convertValue(employee, EmployeeEntity.class));
         }
+    }
+
+    @Override
+    public Employee findEmployeeById(Long id) {
+
+        if (empRepo.findById(id).isPresent()){
+            Optional<EmployeeEntity> employeeById = empRepo.findById(id);
+            return new ObjectMapper().convertValue(employeeById.get(),Employee.class);
+        }
+        return new Employee();
     }
 }

@@ -25,18 +25,24 @@ public class EmployeeController {
     @GetMapping("get-all")
     public List<Employee> getAll() {
 
-        return employeeService. getAll();
+        return employeeService.getAll();
     }
 
     @DeleteMapping("/delete-emp/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public String deleteEmployee(@PathVariable Long id){
+    public String deleteEmployee(@PathVariable Long id) {
         employeeService.deleteEmpById(id);
         return "Deleted";
     }
 
     @PostMapping("/update-emp")
-    void updateEmployee(@RequestBody Employee employee){
+    public void updateEmployee(@RequestBody Employee employee) {
         employeeService.updateEmployee(employee);
+
+    }
+
+    @GetMapping("/find-by-id/{id}")
+    public Employee findById(@PathVariable Long id){
+        return employeeService.findEmployeeById(id);
     }
 }
