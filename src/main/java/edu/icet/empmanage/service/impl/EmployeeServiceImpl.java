@@ -36,4 +36,21 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return emoployeeList;
     }
+
+    @Override
+    public void deleteEmpById(Long id) {
+
+        if (empRepo.existsById(id)) {
+            empRepo.deleteById(id);
+        }
+
+    }
+
+    @Override
+    public void updateEmployee(Employee employee) {
+
+        if (empRepo.findById(employee.getId()).isPresent()){
+            empRepo.save(new ObjectMapper().convertValue(employee, EmployeeEntity.class));
+        }
+    }
 }
